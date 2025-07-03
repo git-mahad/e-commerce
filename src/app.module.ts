@@ -22,7 +22,7 @@ import { UserModule } from './user/user.module';
         password: config.get('DB_PASSWORD'),
         database: config.get('DB_NAME'),
         entities: [User],
-        synchronize: false,
+        synchronize: true,
       }),
     }),
     TypeOrmModule.forFeature([User]),
