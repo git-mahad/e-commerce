@@ -7,11 +7,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { RolesGuard } from '../auth/guards/roles.guard';
-import { Roles } from '../auth/decorators/roles.decorator';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { Roles } from 'src/common/decorators/roles.decorator';
 import { UserRole } from '../auth/entities/user.entity';
-import { UpdateUserInfoDto } from 'src/auth/dto/update.dto';
+import { UpdateUserInfoDto } from '../auth/dto/update.dto';
 
 @Controller('admin')
 @UseGuards(JwtAuthGuard, RolesGuard)
