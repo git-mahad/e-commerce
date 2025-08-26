@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Cart } from "../../../modules/cart/entities/cart.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity('Product')
 export class Product {
   @PrimaryGeneratedColumn()
   id: number;
@@ -31,4 +32,7 @@ export class Product {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @OneToMany(()=> Cart, (cart) => cart.product)
+  cartItems: []
 }
