@@ -6,7 +6,9 @@ import { User } from './modules/auth/entities/user.entity';
 import { UserAdminModule } from './modules/user/modules/user-admin.module';
 import { UserModule } from './modules/user/modules/user.module';
 import { ProductModule } from './modules/products/product.module';
-import { Product } from './modules/products/entities/product.entity';
+// import { Product } from './modules/products/entities/product.entity';
+import { CartModule } from './modules/cart/cart.module';
+// import { Cart } from './modules/cart/entities/cart.entity';
 
 @Module({
   imports: [
@@ -21,8 +23,9 @@ import { Product } from './modules/products/entities/product.entity';
         username: config.get('DB_USERNAME'),
         password: config.get('DB_PASSWORD'),
         database: config.get('DB_NAME'),
-        entities: [User, Product],
-        synchronize: true,
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: false,
+        migrations: [__dirname + '/migrations/*{.ts,.js}'],
         logging: ['error', 'warn', 'schema', 'migration', 'query'],
       }),
     }),
@@ -31,8 +34,9 @@ import { Product } from './modules/products/entities/product.entity';
     UserAdminModule,
     UserModule,
     ProductModule,
+    CartModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

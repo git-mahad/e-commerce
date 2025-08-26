@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { Cart } from '../../../modules/cart/entities/cart.entity';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -30,4 +31,7 @@ export class User {
   
   @Column({ default: true })
   isActive: boolean;
+
+  @OneToMany(()=> Cart, (cart) => cart.user)
+  cartItems: []
 }
