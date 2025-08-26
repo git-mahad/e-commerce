@@ -3,8 +3,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { User } from './modules/auth/entities/user.entity';
-import { AdminModule } from './modules/admin/admin.module';
-import { UserModule } from './modules/user/user.module';
+import { UserAdminModule } from './modules/user/modules/user-admin.module';
+import { UserModule } from './modules/user/modules/user.module';
+import { ProductModule } from './modules/products/product.module';
+import { Product } from './modules/products/entities/product.entity';
 
 @Module({
   imports: [
@@ -19,15 +21,16 @@ import { UserModule } from './modules/user/user.module';
         username: config.get('DB_USERNAME'),
         password: config.get('DB_PASSWORD'),
         database: config.get('DB_NAME'),
-        entities: [User],
+        entities: [User, Product],
         synchronize: true,
         logging: ['error', 'warn', 'schema', 'migration', 'query'],
       }),
     }),
     TypeOrmModule.forFeature([User]),
     AuthModule,
-    AdminModule,
-    UserModule
+    UserAdminModule,
+    UserModule,
+    ProductModule,
   ],
   controllers: [],
   providers: [],

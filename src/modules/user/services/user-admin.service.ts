@@ -1,10 +1,10 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '../auth/entities/user.entity';
+import { User } from 'src/modules/auth/entities/user.entity';
 
 @Injectable()
-export class AdminService {
+export class UserAdminService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
@@ -39,7 +39,6 @@ export class AdminService {
     const user = await this.userRepository.findOne({ where: { id } });
     if (!user) throw new NotFoundException('User not found');
 
-    // Optional: Check if email is being changed and already exists
     if (updateData.email && updateData.email !== user.email) {
       const existing = await this.userRepository.findOne({
         where: { email: updateData.email },
@@ -49,7 +48,6 @@ export class AdminService {
       }
     }
 
-    // Merge updateData
     Object.assign(user, updateData);
 
     const updatedUser = await this.userRepository.save(user);

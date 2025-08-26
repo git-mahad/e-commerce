@@ -6,18 +6,18 @@ import {
   Body,
   UseGuards,
 } from '@nestjs/common';
-import { AdminService } from './admin.service';
+import { UserAdminService } from '../services/user-admin.service';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
-import { UserRole } from '../auth/entities/user.entity';
-import { UpdateUserInfoDto } from '../auth/dto/update.dto';
+import { UserRole } from 'src/modules/auth/entities/user.entity';
+import { UpdateUserInfoDto } from 'src/modules/auth/dto/update.dto';
 
 @Controller('admin')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(UserRole.ADMIN)
-export class AdminController {
-  constructor(private readonly adminService: AdminService) {}
+export class UserAdminController {
+  constructor(private readonly adminService: UserAdminService) {}
 
   @Get('users')
   async getAllUsers() {
@@ -45,5 +45,4 @@ async updateUserInfo(
   return this.adminService.updateUserInfo(+id, body);
 }
 
-  
 }

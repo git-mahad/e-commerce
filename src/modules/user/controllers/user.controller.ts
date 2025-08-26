@@ -6,7 +6,7 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
-import { UserService } from './user.service';
+import { UserService } from '../services/user.service';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
 @Controller('user')
@@ -19,7 +19,7 @@ export class UserController {
     return this.userService.getMyProfile(req.user.id);
   }
 
-  @Patch('me')
+  @Patch('update')
   async updateMyProfile(@Request() req, @Body() updateData: any) {
     return this.userService.updateMyProfile(req.user.id, updateData);
   }
